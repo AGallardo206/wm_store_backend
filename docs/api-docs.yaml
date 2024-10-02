@@ -1,0 +1,136 @@
+openapi: 3.0.0
+info:
+  title: Customer Record API
+  version: 1.0.0
+paths:
+  /customer-records:
+    get:
+      summary: Get a list of customer records
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/CustomerRecord"
+        "404":
+          description: No customer records found
+    post:
+      summary: Create a new customer record
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CustomerRecord"
+      responses:
+        "201":
+          description: Customer record created successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CustomerRecord"
+        "400":
+          description: Validation error
+        "500":
+          description: Database error
+  /customer-records/{id}:
+    get:
+      summary: Get a single customer record
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CustomerRecord"
+        "404":
+          description: Customer record not found
+    put:
+      summary: Update a customer record
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CustomerRecord"
+      responses:
+        "200":
+          description: Customer record updated successfully
+        "400":
+          description: Validation error
+        "404":
+          description: Customer record not found
+    patch:
+      summary: Partially update a customer record
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CustomerRecord"
+      responses:
+        "200":
+          description: Customer record updated successfully
+        "400":
+          description: Validation error
+        "404":
+          description: Customer record not found
+    delete:
+      summary: Delete a customer record
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Customer record deleted successfully
+        "404":
+          description: Customer record not found
+components:
+  schemas:
+    CustomerRecord:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        dni:
+          type: integer
+        operator_id:
+          type: integer
+        phone:
+          type: string
+        schedule_1:
+          type: string
+        schedule_2:
+          type: string
+        schedule_3:
+          type: string
+        created_at:
+          type: string
+        updated_at:
+          type: string
